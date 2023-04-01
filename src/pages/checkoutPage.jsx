@@ -14,4 +14,4 @@ function CheckoutPage() {
 
     );
 }
-export default HomePage;
+export default CheckoutPage;

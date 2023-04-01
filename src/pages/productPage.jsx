@@ -7,11 +7,9 @@ import {useParams} from "react-router-dom"
  * @constructor
  */
 function ProductPage() {
-    const productId=useParams();
-
+    const productId=useParams("product").product;
     return(
-        <h2>Home</h2>
-
+        <h2>{productId}</h2>
     );
 }
-export default HomePage;
+export default ProductPage;

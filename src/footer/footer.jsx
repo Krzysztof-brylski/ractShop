@@ -1,10 +1,12 @@
 import React from "react";
-
+import {Link} from "react-router-dom";
 
 function Footer() {
     return(
-        <footer>
-            <h2>footer</h2>
+        <footer className={"bg-black p-1"}>
+            <Link to={"/"}>
+                <h2 className={"text-white"}>©{new Date().getFullYear()} Totaly not fake eShop </h2>
+            </Link>
         </footer>
 
     );

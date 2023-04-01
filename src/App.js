@@ -7,6 +7,8 @@ import HomePage from "./pages/homePage";
 import NotFound from "./pages/404";
 import AppContextProvider, {AppContext} from "./appContext";
 import ContactPage from "./pages/contactPage";
+import ProductPage from "./pages/productPage";
+import CheckoutPage from "./pages/checkoutPage";
 
 
 
@@ -19,10 +21,10 @@ function App() {
         <BrowserRouter>
             <Navbar/>
               <Routes>
-                <Route path={"/"} element={<HomePage/>}/>
-                <Route path={"/checkout"} element={<HomePage/>}/>
+                <Route path={"/:category?"} element={<HomePage/>}/>
+                <Route path={"/checkout"} element={<CheckoutPage/>}/>
                 <Route path={"/contact"} element={<ContactPage/>}/>
-                <Route path={"/product/:product"} element={<HomePage/>}/>
+                <Route path={"/product/:product"} element={<ProductPage/>}/>
                 <Route path={"/404"} element={<NotFound/>}/>
                 <Route path={"/*"} element={<Navigate to={"/404"}/>}/>
               </Routes>

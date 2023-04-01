@@ -1,5 +1,6 @@
 import React, {useState, useEffect, useContext} from "react";
 import {AppContext} from '../appContext.jsx'
+import {Link} from "react-router-dom";
 function TagListComponent() {
     const [tags,setTags]=useState([]);
     const {axiosInstance}=useContext(AppContext);
@@ -17,9 +18,9 @@ function TagListComponent() {
                 {
                     tags !==null && tags.map((element)=>{
                         return (
-                            <a href={"#"}>
+                            <Link to={`/${element.tag_name}`}>
                                 <span className={"mx-4 my-2 text-xl font-semibold leading-none tracking-tight text-gray-600 p-2 capitalize hover:text-gray-900"}>{element.tag_name}</span>
-                            </a>
+                            </Link>
                         );
                     })
                 }
