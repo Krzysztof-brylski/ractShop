@@ -6,6 +6,7 @@ import Footer from "./footer/footer";
 import HomePage from "./pages/homePage";
 import NotFound from "./pages/404";
 import AppContextProvider, {AppContext} from "./appContext";
+import ContactPage from "./pages/contactPage";
 
 
 
@@ -20,6 +21,7 @@ function App() {
               <Routes>
                 <Route path={"/"} element={<HomePage/>}/>
                 <Route path={"/checkout"} element={<HomePage/>}/>
+                <Route path={"/contact"} element={<ContactPage/>}/>
                 <Route path={"/product/:product"} element={<HomePage/>}/>
                 <Route path={"/404"} element={<NotFound/>}/>
                 <Route path={"/*"} element={<Navigate to={"/404"}/>}/>
