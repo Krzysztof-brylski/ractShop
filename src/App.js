@@ -1,23 +1,32 @@
-import logo from './logo.svg';
+import React, {useContext, useEffect} from "react";
+import {BrowserRouter,Routes,Route,Navigate} from "react-router-dom"
 import './App.css';
+import Navbar from "./nav/navbar";
+import Footer from "./footer/footer";
+import HomePage from "./pages/homePage";
+import NotFound from "./pages/404";
+import AppContextProvider, {AppContext} from "./appContext";
+
+
 
 function App() {
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppContextProvider>
+        <BrowserRouter>
+            <Navbar/>
+              <Routes>
+                <Route path={"/"} element={<HomePage/>}/>
+                <Route path={"/checkout"} element={<HomePage/>}/>
+                <Route path={"/product/:product"} element={<HomePage/>}/>
+                <Route path={"/404"} element={<NotFound/>}/>
+                <Route path={"/*"} element={<Navigate to={"/404"}/>}/>
+              </Routes>
+            <Footer/>
+        </BrowserRouter>
+      </AppContextProvider>
     </div>
   );
 }
