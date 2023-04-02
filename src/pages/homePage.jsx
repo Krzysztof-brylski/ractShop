@@ -23,12 +23,14 @@ function HomePage() {
             let filters={
                 "tag[*].dataUrl":{
                     "type":"contains",
-                    "filter":`/api/v1/content/product_tags/${category}`
+                    "filter":`/api/v1/content/product_tags/${category}&limit=12&hydrate=1`
                 }
             };
             requestUrl+=`?filters=${JSON.stringify(filters)}`;
+        }else{
+            requestUrl+='?limit=12&hydrate=1';
         }
-        requestUrl+='&limit=12&hydrate=1';
+
         axiosInstance.get(requestUrl).then((res)=>{
             setData(res.data.data);
             console.log(res.data.data);

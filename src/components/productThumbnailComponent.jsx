@@ -3,13 +3,14 @@ import {AppContext} from "../appContext";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar,faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom"
+import ProductStarsComponent from "./productStarsComponent";
 function PostThumbnailComponent({product}) {
     const {addItem,checkout}=useContext(AppContext);
     const AddToCart=()=>{
         addItem(product);
         console.log(checkout);
     };
-    const iterator=[1,2,3,4,5];
+
     return(
         <div className={"p-5 m-2 flex flex-col "}>
             <Link to={`/product/${product.id}`} className={"flex justify-center"}>
@@ -17,13 +18,7 @@ function PostThumbnailComponent({product}) {
             </Link>
             <h2 className={"mt-1 font-semibold text-xl h-fit"}>{product.product_name}</h2>
             <h5 className={"mb-1 font-normal text-md h-fit capitalize"}>#{product.tag[0].tag_name}</h5>
-            <div className={"flex justify-center"}>
-                {
-                    iterator.map((i)=>{
-                        return (<FontAwesomeIcon icon={faStar} className={ i > Math.floor(product.product_score) ? "text-gray-400":"text-yellow-500"} />);
-                    })
-                }
-            </div>
+            <ProductStarsComponent size={"lg"} stars={product.product_score}/>
 
             <span className={"my-2 font-bold text-xl"}>${product.product_price}</span>
 
