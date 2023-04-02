@@ -23,17 +23,17 @@ function HomePage() {
             let filters={
                 "tag[*].dataUrl":{
                     "type":"contains",
-                    "filter":`/api/v1/content/product_tags/${category}&limit=12&hydrate=1`
+                    "filter":`/api/v1/content/product_tags/${category}`
                 }
             };
-            requestUrl+=`?filters=${JSON.stringify(filters)}`;
+            requestUrl+=`?filters=${JSON.stringify(filters)}&limit=12&hydrate=1`;
         }else{
             requestUrl+='?limit=12&hydrate=1';
         }
 
         axiosInstance.get(requestUrl).then((res)=>{
             setData(res.data.data);
-            console.log(res.data.data);
+
         }).catch((err)=>{
             console.error(err.response);
         });
