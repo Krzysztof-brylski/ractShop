@@ -2,8 +2,22 @@ import React, {useContext} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faXmarkCircle} from "@fortawesome/free-solid-svg-icons";
 import {AppContext} from "../appContext";
+import {useAlert} from "react-alert";
+
 function CheckoutProductComponent({id,image,name,tag,price,count}) {
-        const {popItem,deleteCart} = useContext(AppContext);
+        const {popItem} = useContext(AppContext);
+        const alert=useAlert();
+        const deleteItem=(id)=>{
+            let result = popItem(id);
+
+            if(result.status==="error"){
+                alert.error(result.message);
+                return;
+            }
+            alert.success(result.message);
+        };
+
+
         return(
             <div className={"m-2 p-2 flex items-center justify-between"}>
                 <img src={`https://api.flotiq.com${image}`} style={{width:"150", height:"150px"}} className={"my-2 p-2"}/>
@@ -21,7 +35,7 @@ function CheckoutProductComponent({id,image,name,tag,price,count}) {
                     <span>Total: ${parseFloat(price) * parseFloat(count)}</span>
                 </div>
                 <div className={"mx-3 p-2"}>
-                    <FontAwesomeIcon onClick={()=>{popItem(id);}} icon={faXmarkCircle} size={"xl"} className={"text-gray-500 hover:text-gray-900 hover:scale-125"}/>
+                    <FontAwesomeIcon onClick={()=>{deleteItem(id);}} icon={faXmarkCircle} size={"xl"} className={"text-gray-500 hover:text-gray-900 hover:scale-125"}/>
                 </div>
             </div>
         );

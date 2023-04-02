@@ -14,16 +14,16 @@ export default function AppContextProvider({children}){
 
     const [checkout,setCheckout]=useState({});
     const [checkoutCount,setCheckoutCount]=useState(0);
-
+    const [price,setPrice]=useState(0);
     useState(()=>{
         if(cookies['checkout'] !== undefined){
-            //console.log(cookies['checkout']);
             setCheckout(cookies['checkout']['checkout']);
         }
     });
 
     const addItem=(item)=>{
         setCheckoutCount((prev)=>prev+=1);
+        setPrice((prev)=>prev+=item.product_price);
         removeCookie('checkout');
         if(checkout[item.id]){
             checkout[item.id].quantity+=1;
@@ -37,9 +37,10 @@ export default function AppContextProvider({children}){
 
     const popItem=(itemId)=>{
         setCheckoutCount((prev)=>prev-=1);
+
         removeCookie('checkout');
         if(!checkout[itemId]){
-            return "this item dont exits";
+            return {status:"error",message:"this item dont exits"};
         }
         if(checkout[itemId].quantity > 1){
             checkout[itemId].quantity-=1;
@@ -48,7 +49,7 @@ export default function AppContextProvider({children}){
             delete checkout[itemId];
         }
         setCookie('checkout',{checkout:checkout},{path:"/",maxAge:(60*60*24)});
-        return "item deleted";
+        return {status:"success",message:"item deleted"};
     };
 
     const deleteCart=()=>{
@@ -61,6 +62,7 @@ export default function AppContextProvider({children}){
         axiosInstance,
         checkout,
         checkoutCount,
+        price,
         addItem,
         popItem,
         deleteCart,
