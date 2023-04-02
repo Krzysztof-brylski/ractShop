@@ -12,9 +12,8 @@ export default function AppContextProvider({children}){
         headers: {'X-AUTH-TOKEN': apiKey}
     });
 
-    const [checkout,setCheckout]=useState({});
-    const [checkoutCount,setCheckoutCount]=useState(0);
-    const [price,setPrice]=useState(0);
+    const [checkout,setCheckout]=useState({items:{},count:0,total:0});
+    const [xdRerender,setXdRerender]=useState(1);
     useState(()=>{
         if(cookies['checkout'] !== undefined){
             setCheckout(cookies['checkout']['checkout']);
@@ -22,47 +21,50 @@ export default function AppContextProvider({children}){
     });
 
     const addItem=(item)=>{
-        setCheckoutCount((prev)=>prev+=1);
-        setPrice((prev)=>prev+=item.product_price);
-        removeCookie('checkout');
-        if(checkout[item.id]){
-            checkout[item.id].quantity+=1;
-        }else{
-            checkout[item.id]={quantity:1,item:item};
-        }
+        checkout.total+=item.product_price;
+        checkout.count+=1;
 
+        if(checkout.items[item.id]){
+            checkout.items[item.id].quantity+=1;
+
+        }else{
+            checkout.items[item.id]={quantity:1,item:item};
+        }
+        removeCookie('checkout');
         setCookie('checkout',{checkout:checkout},{path:"/",maxAge:(60*60*24)});
         return {status:"success",message:"item added"};
     };
 
     const popItem=(itemId)=>{
-        setCheckoutCount((prev)=>prev-=1);
-
-        removeCookie('checkout');
-        if(!checkout[itemId]){
+        if(!checkout.items[itemId]){
             return {status:"error",message:"this item dont exits"};
         }
-        if(checkout[itemId].quantity > 1){
-            checkout[itemId].quantity-=1;
+
+        checkout.total-=(checkout.items[itemId].item.product_price).toFixed(2);
+        checkout.count-=1;
+        if(checkout.items[itemId].quantity > 1){
+            checkout.items[itemId].quantity-=1;
 
         }else{
-            delete checkout[itemId];
+            delete checkout.items[itemId];
         }
+
+        removeCookie('checkout');
+        setXdRerender(prev=>prev+=1);
         setCookie('checkout',{checkout:checkout},{path:"/",maxAge:(60*60*24)});
+
         return {status:"success",message:"item deleted"};
     };
 
     const deleteCart=()=>{
-        setCheckoutCount(0);
-        setCheckout({});
+
+        setCheckout({items:{},count:0,total:0});
         removeCookie('checkout');
     };
 
     const context={
         axiosInstance,
         checkout,
-        checkoutCount,
-        price,
         addItem,
         popItem,
         deleteCart,
