@@ -18,7 +18,7 @@ function TagListComponent() {
                 {
                     tags !==null && tags.map((element)=>{
                         return (
-                            <Link to={`/${element.tag_name}`}>
+                            <Link to={`/${element.id}`}>
                                 <span className={"mx-4 my-2 text-xl font-semibold leading-none tracking-tight text-gray-600 p-2 capitalize hover:text-gray-900"}>{element.tag_name}</span>
                             </Link>
                         );
