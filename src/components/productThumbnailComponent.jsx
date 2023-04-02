@@ -3,12 +3,15 @@ import {AppContext} from "../appContext";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faStar,faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import {Link} from "react-router-dom"
+import Alert from 'react-popup-alert'
 import ProductStarsComponent from "./productStarsComponent";
+import {useAlert} from "react-alert";
 function PostThumbnailComponent({product}) {
     const {addItem,checkout}=useContext(AppContext);
+    const alert=useAlert();
     const AddToCart=()=>{
-        addItem(product);
-        console.log(checkout);
+        let res = addItem(product);
+        alert.success(res.message);
     };
 
     return(

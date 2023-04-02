@@ -11,14 +11,13 @@ export default function AppContextProvider({children}){
         headers: {'X-AUTH-TOKEN': apiKey}
     });
     const [checkout,setCheckout]=useState({});
-
     const addItem=(item)=>{
         if(checkout[item.id]){
             checkout[item.id].quantity+=1;
-            return "item added";
+            return {status:"success",message:"item added"};
         }
         checkout[item.id]={quantity:1,item:item};
-        return;
+        return {status:"success",message:"item added"};
     };
 
     const popItem=(itemId)=>{
@@ -41,7 +40,7 @@ export default function AppContextProvider({children}){
         checkout,
         addItem,
         popItem,
-        deleteCart
+        deleteCart,
     };
 
     return(
