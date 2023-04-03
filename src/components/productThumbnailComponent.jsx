@@ -6,6 +6,13 @@ import {Link} from "react-router-dom"
 import Alert from 'react-popup-alert'
 import ProductStarsComponent from "./productStarsComponent";
 import {useAlert} from "react-alert";
+
+/**
+ * component for displaying post thumbnail in home page
+ * @param product - product obj
+ * @returns {*}
+ * @constructor
+ */
 function PostThumbnailComponent({product}) {
     const {addItem,checkout}=useContext(AppContext);
     const alert=useAlert();

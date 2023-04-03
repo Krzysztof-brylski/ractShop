@@ -5,9 +5,11 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faCartShopping} from "@fortawesome/free-solid-svg-icons";
 import {AppContext} from "../appContext";
 import {useAlert} from "react-alert";
+import LoadingComponent from "../components/helpers/loadingComponent";
+import EmptyResultComponent from "../components/helpers/emptyCoponent";
 
 /**
- * display specified product
+ * specified product page
  * @returns {*}
  * @constructor
  */
@@ -16,23 +18,31 @@ function ProductPage() {
     const [data,setData]=useState(null);
     const {axiosInstance} = useContext(AppContext);
     const {addItem,checkout}=useContext(AppContext);
+    const [loading, setLoading]=useState(true);
+    const alert=useAlert();
     useEffect(()=>{
+        setLoading(true);
         axiosInstance.get(`/product/${productId}?hydrate=1`).then((res)=>{
-            setData(res.data)
+            setData(res.data);
+            setLoading(false);
         }).catch((err)=>{
 
         })
     },[productId]);
 
-    const alert=useAlert();
+    if(loading){
+        return (<LoadingComponent/>);
+    }
+
+    if(data === null && !loading){
+        return (<EmptyResultComponent/>);
+    }
+
+
     const AddToCart=()=>{
         let res = addItem(data);
         alert.success(res.message);
     };
-
-    if(data ===null){
-        return null;
-    }
     return(
         <div className={"p-5 flex justify-between my-8"}>
             <div className={"flex flex-col justify-center items-center w-2/5"}>

@@ -1,6 +1,12 @@
 import React, {useState, useEffect, useContext} from "react";
 import {AppContext} from '../appContext.jsx'
 import {Link} from "react-router-dom";
+
+/**
+ * component for displaying filtering product by tag menu
+ * @returns {*}
+ * @constructor
+ */
 function TagListComponent() {
     const [tags,setTags]=useState([]);
     const {axiosInstance}=useContext(AppContext);
@@ -8,7 +14,6 @@ function TagListComponent() {
         axiosInstance.get("/product_tags?limit=6").then((res)=>{
             setTags(res.data.data);
         }).catch((err)=>{
-
         });
     },[]);
     return (

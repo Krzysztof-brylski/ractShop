@@ -3,6 +3,11 @@ import {Link} from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faFacebookF,faInstagram } from '@fortawesome/free-brands-svg-icons'
 
+/**
+ * page navbar component
+ * @returns {*}
+ * @constructor
+ */
 function Navbar() {
     return(
         <nav className={"min-w-full p-2 flex justify-center bg-black"}>

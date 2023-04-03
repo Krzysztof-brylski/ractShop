@@ -2,11 +2,21 @@ import React, {createContext, useState} from "react";
 import { useCookies } from 'react-cookie';
 import axios from "axios";
 export const AppContext = createContext();
-
+/**
+ *
+ * App context
+ * there is handled checkout functional
+ * (adding product, deleting product, saving/creating checkoutObj into/from cookie),
+ * axios instance have configured base URL, and flotiq readonly api hey
+ * @param children
+ * @returns {*}
+ * @constructor
+ */
 export default function AppContextProvider({children}){
 
     const apiKey="846c95c8f2f1506074c95fbdd79a9600";
     const [cookies, setCookie, removeCookie] = useCookies(['best-eshop']);
+
     const axiosInstance = axios.create({
         baseURL:"https://api.flotiq.com/api/v1/content/",
         headers: {'X-AUTH-TOKEN': apiKey}

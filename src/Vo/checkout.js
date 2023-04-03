@@ -1,9 +1,0 @@
-class Checkout {
-
-    Checkout(){
-
-    }
-
-
-
-}
