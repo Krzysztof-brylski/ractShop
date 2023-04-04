@@ -14,7 +14,7 @@ function Navbar() {
             <div className={"flex"}>
                 <Link to={"/"} className={"text-white mx-4 hover:text-gray-300"}>Home</Link>
                 <Link to={"/checkout"} className={"text-white mx-4 hover:text-gray-300"}>Checkout</Link>
-                <Link to={"/contact"} className={"text-white mx-4 hover:text-gray-300"}>Contact</Link>
+                <Link to={"/login"} className={"text-white mx-4 hover:text-gray-300"}>Login</Link>
                 <a href={"#"} className={"mx-5"}>
                     <FontAwesomeIcon icon={faFacebookF} size={"md"} className={"text-white hover:text-gray-300"} />
                 </a>
